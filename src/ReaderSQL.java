@@ -8,9 +8,9 @@ public class ReaderSQL {
 	private static final String url = "jdbc:postgresql://localhost:5432/Ivan";
 	private static final String user = "postgres";
 	private static final String password = "livfan";
-	private static Connection con;
-	private static Statement st;
-	private static ResultSet rs;
+	Connection con;
+	Statement st;
+	ResultSet rs;
 
 	public void readSQL() {
 		try {
