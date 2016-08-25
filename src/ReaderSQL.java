@@ -11,12 +11,20 @@ public class ReaderSQL {
 	Connection con;
 	Statement st;
 	ResultSet rs;
-
-	public void readSQL() {
+	
+	ReaderSQL() {
 		try {
 			con = DriverManager.getConnection(url, user, password);
 			st = con.createStatement();
-			rs = st.executeQuery("select * from public.\"TBF\" order by salary desc");
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	public void readSQL() {
+		try {
+			rs = st.executeQuery("select * from Fired order by salary desc");
 			while (rs.next()) {
 				System.out.println(rs.getString(2) + " " + rs.getInt(4));
 			}
@@ -24,13 +32,13 @@ public class ReaderSQL {
 			System.out.println("Where is your MySQL JDBC Driver?");
 			e.printStackTrace();
 		} finally {
-
 			try {
 				con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
+	
 	}
 
 }
