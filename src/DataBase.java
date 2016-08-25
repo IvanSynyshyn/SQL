@@ -1,34 +1,22 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.IOException;
 
 public class DataBase {
-	private static final String url = "jdbc:postgresql://localhost:5432/Ivan";
-	private static final String user = "postgres";
-	private static final String password = "livfan";
-	private static Connection con;
-	private static Statement st;
-	private static ResultSet rs;
+	
 
 	public static void main(String[] args) {
+		
+		ReaderSQL rd = new ReaderSQL();
+		rd.readSQL();
+		
+		CreateTable ct = new CreateTable();
+		ct.createTable();
+		
+		Changes ch = new Changes();
 		try {
-			con = DriverManager.getConnection(url, user, password);
-			st = con.createStatement();
-			rs = st.executeQuery("select * from public.\"TBF\" order by salary desc");
-			while (rs.next()) {
-				System.out.println(rs.getString(2) + " " + rs.getInt(4));
-			}
-		} catch (SQLException e) {
-			System.out.println("Where is your MySQL JDBC Driver?");
+			ch.addLine();
+		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-
-			try {
-				con.close();
-			} catch (SQLException se) {
-				se.printStackTrace(); }
 		}
+		
 	}
 }
